@@ -6,6 +6,6 @@ const router = express.Router();
 router.use(protectRoute);
 
 router.get("/", couponController.getCoupon);
-router.get("/validate", couponController.validateCoupon);
+router.post("/validate", couponController.validateCoupon);
 
 export default router;

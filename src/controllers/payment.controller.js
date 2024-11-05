@@ -28,6 +28,7 @@ export const createCheckoutSession = async (req, res) => {
           },
           unit_amount: amount,
         },
+        quantity: product.quantity || 1,
       };
     });
 
@@ -49,7 +50,7 @@ export const createCheckoutSession = async (req, res) => {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `${process.env.CLIENT_URL}/purchase-success?session_id=CHECKOUT_SESSION_ID`,
+      success_url: `${process.env.CLIENT_URL}/purchase-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.CLIENT_URL}/purchase-cancel`,
       discounts: coupon
         ? [
@@ -145,6 +146,11 @@ const createStripeCoupon = async (discountPercentage) => {
 };
 
 const createNewCoupon = async (userId) => {
+  const oldCoupon = await Coupon.findOne({ userId });
+  if (oldCoupon) {
+    await oldCoupon.deleteOne();
+  }
+
   const newCoupon = new Coupon({
     code: "GIFT" + Math.random().toString(36).substring(2, 8).toUpperCase(),
     discountPercentage: 10,

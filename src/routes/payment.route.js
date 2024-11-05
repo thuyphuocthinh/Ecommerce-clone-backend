@@ -10,6 +10,6 @@ router.post(
   paymentController.createCheckoutSession
 );
 
-router.post("/checkout-succses", paymentController.checkoutSuccess);
+router.post("/checkout-success", paymentController.checkoutSuccess);
 
 export default router;
