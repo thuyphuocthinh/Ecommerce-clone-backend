@@ -5,6 +5,7 @@ import productsRoutes from "./src/routes/products.route.js";
 import cartRoutes from "./src/routes/cart.route.js";
 import couponRoutes from "./src/routes/coupon.route.js";
 import paymentRoutes from "./src/routes/payment.route.js";
+import analyticsRoutes from "./src/routes/analytics.route.js";
 import { connectDB } from "./src/config/database.config.js";
 import cookieParser from "cookie-parser";
 dotenv.config();
@@ -20,6 +21,7 @@ app.use("/api/products", productsRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/coupon", couponRoutes);
 app.use("/api/payments", paymentRoutes);
+app.use("/api/analytics", analyticsRoutes);
 
 app.listen(PORT, () => {
   connectDB();
